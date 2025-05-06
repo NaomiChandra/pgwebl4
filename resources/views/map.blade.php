@@ -213,10 +213,21 @@
         // Load GeoJSON Points
         var point = L.geoJson(null, {
             onEachFeature: function(feature, layer) {
+
+                var routedelete = "{{route('points.destroy', ':id') }}"
+                routedelete = routedelete.replace(':id', feature.properties.id);
+
                 var popupContent = "Name: " + feature.properties.name + "<br>" +
                     "Description: " + feature.properties.description + "<br>" +
                     "Created: " + feature.properties.created_at + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' width='200' alt=''>";
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image +
+                    "' width='200' alt=''>" +
+                    "<br>" +
+                    "<form method ='POST' action='" + routedelete + "'>"  +
+                    '@csrf' + '@method("DELETE")' +
+                    "<button type='submit' class='btn btn-danger' onclick='return confirm(`Are you sure?`)' btn-sm'><i class='fa-solid fa-trash-can'></i></button>" +
+                    "</form>";
+
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
             }
@@ -229,11 +240,22 @@
         // Load GeoJSON Polylines
         var polylines = L.geoJson(null, {
             onEachFeature: function(feature, layer) {
+
+                var routedelete = "{{route('polylines.destroy', ':id') }}"
+                routedelete = routedelete.replace(':id', feature.properties.id);
+
                 var popupContent = "Name: " + feature.properties.name + "<br>" +
                     "Description: " + feature.properties.description + "<br>" +
                     "Length (KM): " + parseFloat(feature.properties.length_km).toFixed(2) + "<br>" +
                     "Created: " + feature.properties.created_at + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' width='200' alt=''>";
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image +
+                    "' width='200' alt=''>" +
+                    "<br>" +
+                    "<form method ='POST' action='" + routedelete + "'>"  +
+                    '@csrf' + '@method("DELETE")' +
+                    "<button type='submit' class='btn btn-danger' onclick='return confirm(`Are you sure?`)' btn-sm'><i class='fa-solid fa-trash-can'></i></button>" +
+                    "</form>";
+
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
             }
@@ -246,13 +268,24 @@
         // Load GeoJSON Polygons
         var polygon = L.geoJson(null, {
             onEachFeature: function(feature, layer) {
+
+                var routedelete = "{{route('polygons.destroy', ':id') }}"
+                routedelete = routedelete.replace(':id', feature.properties.id);
+
                 var popupContent = "Name: " + feature.properties.name + "<br>" +
                     "Area (Hectares): " + parseFloat(feature.properties.area_hektar).toFixed(2) + "<br>" +
                     "Area (Km²): " + parseFloat(feature.properties.area_km).toFixed(2) + "<br>" +
                     "Area (m²): " + parseFloat(feature.properties.area_m).toFixed(2) + "<br>" +
                     "Description: " + feature.properties.description + "<br>" +
                     "Created: " + feature.properties.created_at + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' width='200' alt=''>";
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image +
+                    "' width='200' alt=''>" +
+                    "<br>" +
+                    "<form method ='POST' action='" + routedelete + "'>"  +
+                    '@csrf' + '@method("DELETE")' +
+                    "<button type='submit' class='btn btn-danger' onclick='return confirm(`Are you sure?`)' btn-sm'><i class='fa-solid fa-trash-can'></i></button>" +
+                    "</form>";
+
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
             }
